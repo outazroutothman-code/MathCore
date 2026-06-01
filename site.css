@@ -1,0 +1,979 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    scroll-margin-top: 7rem;
+}
+
+
+::selection{
+        color: #ef4444;
+    }
+
+body{
+    background-image: linear-gradient(to right, #1e293b, #0b7e74);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #f8fafc;
+    font-family: 'Cairo', 'Roboto', sans-serif;
+    padding-top: 5rem;
+    overflow-x: hidden;
+}
+
+header{
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1200px;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2rem;
+    background-color: rgba(15, 23, 42, 0.7) !important; /* ستايل زجاجي داكن نقي */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+header .logo{
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: #ffffff;
+    background: transparent !important;
+}
+
+header .logo span {
+    color: #22d3ee;
+    background: transparent !important;
+}
+
+.marquee-container {
+    background: rgba(34, 211, 238, 0.1) !important;
+    border-bottom: 1px solid rgba(34, 211, 238, 0.2);
+    padding: 10px 0;
+    font-weight: 700;
+    color: #22d3ee; /* لون سيان متوهج */
+    text-shadow: 0 0 10px rgba(34, 211, 238, 0.2);
+    font-size: 1.05rem;
+}
+
+
+
+.navigation ul{
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.navigation a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.700);
+    font-weight: bold;
+    font-size: 1.05rem;
+    padding-bottom: 5px;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.navigation a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 50%;
+    background-color: #22d3ee;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.navigation a:hover, .navigation a.active {
+    color: #22d3ee;
+}
+
+.navigation a:hover::after, .navigation a.active::after {
+    width: 100%;
+}
+
+
+.hero{
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.hero h1{
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #ffffff;
+}
+
+.hero h1 mark {
+    background: none;
+    color: #22d3ee;
+}
+
+.hero p {
+    font-size: 1.25rem; /* كبرنا الخط واحد الشوية باش يسهل يقراه */
+    max-width: 800px;
+    margin: 0 auto 3rem auto; /* بعدنا الزر على النص بـ 3rem */
+    color: rgba(248, 250, 252, 0.85);
+    line-height: 2; /* هادي أهم حاجة! كتخلي السطور متباعدين وميرتاح التلميذ وهو كيقرا */
+}
+
+.cta-btn {
+    display: inline-block;
+    background: #22d3ee;
+    color: #0f172a;
+    text-decoration: none;
+    padding: 1.1rem 3.5rem; /* كبرنا مساحة الزر باش يولي مريح في الشوف وفي الضغط */
+    font-size: 1.25rem;
+    font-weight: bold;
+    border-radius: 50px;
+    box-shadow: 0 4px 25px rgba(34, 211, 238, 0.4);
+    transition: all 0.3s ease;
+}
+
+.cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(34, 211, 238, 0.6);
+    background: #06b6d4;
+}
+
+.courses-section {
+    max-width: 900px;
+    margin: 5rem auto;
+    padding: 0 2rem;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-title h2 {
+    font-size: 2.2rem;
+    color: #ffffff;
+}
+
+.section-title p {
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 0.5rem;
+}
+
+.accordion-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.lesson-card {
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.lesson-card[open] {
+    border-color: rgba(34, 211, 238, 0.4);
+    box-shadow: 0 10px 35px rgba(34, 211, 238, 0.1);
+}
+
+summary {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #ffffff;
+    cursor: pointer;
+    outline: none;
+}
+
+.lesson-num {
+    color: #22d3ee;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    opacity: 0.8;
+}
+
+.lesson-content {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.lesson-desc {
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+}
+
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.resource-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.5rem 1rem;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+.resource-item .icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.resource-item h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+}
+
+.resource-item p {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.resource-item.video:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: #ef4444;
+    transform: translateY(-3px);
+}
+.resource-item.pdf:hover {
+    background: rgba(16, 185, 129, 0.1);
+    border-color: #10b981;
+    transform: translateY(-3px);
+}
+.resource-item.practice:hover {
+    background: rgba(245, 158, 11, 0.1);
+    border-color: #f59e0b;
+    transform: translateY(-3px);
+}
+
+#dora1, #dora2 {
+    display: none;
+}
+
+#dora1:target, #dora2:target {
+    display: block;
+    animation: slideDown 0.5s ease forwards; /* أنيميشن خفيفة فاش كيبانوا الدروس */
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+details summary::-webkit-details-marker {
+    display: none;
+}
+details summary {
+    list-style: none;
+}
+
+.resource-item.video:hover {
+    background: rgba(239, 68, 68, 0.1) !important;
+    border-color: #ef4444 !important;
+    transform: translateY(-3px);
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+}
+
+.resource-item.pdf:hover {
+    background: rgba(16, 185, 129, 0.1) !important;
+    border-color: #10b981 !important;
+    transform: translateY(-3px);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+}
+
+.resource-item.practice:hover {
+    background: rgba(245, 158, 11, 0.1) !important;
+    border-color: #f59e0b !important;
+    transform: translateY(-3px);
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+}
+
+.about-platform {
+    max-width: 1100px;
+    margin: 6rem auto;
+    padding: 0 2rem;
+}
+
+.about-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* كرتين متجاورين في الكمبيوتر */
+    gap: 2rem;
+}
+
+.about-box {
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 2.5rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    text-align: right;
+}
+
+.about-box h2 {
+    font-size: 1.6rem;
+    color: #ffffff;
+    margin-bottom: 1.2rem;
+}
+
+.about-box p {
+    font-size: 1.1rem;
+    color: rgba(248, 250, 252, 0.8);
+    line-height: 1.9;
+}
+
+.about-box .highlight {
+    color: #22d3ee;
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+footer {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: rgba(15, 23, 42, 0.5);
+    margin-top: 5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.6);
+}
+
+footer strong {
+    color: #22d3ee;
+}
+
+/* الخلفية المضببة الشاشفة اللي كتغطي الموقع فاش كيتفتح الـ Popup */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 2000; /* باش تجي فوق الهيدر وفوق كولشي */
+    display: none; /* مخبية فالعادي */
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+/* تفعيل الـ Popup فاش كيكليكي التلميذ */
+.modal-overlay:target {
+    display: flex;
+    animation: fadeInModal 0.3s ease forwards;
+}
+
+/* صندوق الخيارات وسط الشاشة */
+.modal-box {
+    background: rgba(30, 41, 59, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    max-width: 500px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+/* زر الإغلاق (X) */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    left: 20px; /* على اليسار حيت الموقع dir="rtl" */
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+    line-height: 1;
+}
+.close-btn:hover { color: #ef4444; }
+
+.modal-icon { font-size: 3rem; display: block; margin-bottom: 1rem; }
+.modal-box h2 { font-size: 1.5rem; color: #ffffff; margin-bottom: 1rem; }
+.modal-box p { font-size: 1rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 2rem; line-height: 1.6; }
+
+
+.modal-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.action-btn {
+    display: block;
+    padding: 1rem;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.2s ease;
+}
+
+/* زر قراءة أونلاين */
+.action-btn.view {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+.action-btn.view:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #22d3ee;
+}
+
+/* زر التحميل */
+.action-btn.download {
+    background: #22d3ee;
+    color: #0f172a;
+    box-shadow: 0 4px 15px rgba(34, 211, 238, 0.2);
+}
+.action-btn.download:hover {
+    background: #06b6d4;
+    box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
+}
+
+@keyframes fadeInModal {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ---------------------------------------------------- */
+/* ستايل الـ Footer المتحرك والأسطوري */
+/* ---------------------------------------------------- */
+footer {
+    background: rgba(15, 23, 42, 0.75); /* نفس الـ Glassmorphism الفخم */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 1rem 0; /* مساحة ناعمة وصغيرة الفوق ولتحت */
+    margin-top: 10rem; /* مسافة كافية مورا الدروس */
+    width: 100%;
+    overflow: hidden;
+}
+
+marquee.footer-marquee {
+    color: #ffffff;
+    font-size: 1.05rem;
+    letter-spacing: 0.5px;
+}
+
+marquee.footer-marquee strong {
+    font-weight: 700;
+}
+
+
+marquee.footer-marquee a {
+    color: #22d3ee; 
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    border-bottom: 1px dashed rgba(34, 211, 238, 0.4);
+    padding-bottom: 2px;
+    margin: 0 5px;
+    transition: color 0.2s;
+}
+
+marquee.footer-marquee a:hover {
+    color: #06b6d4;
+}
+
+/* 📱 ضبط المسافات في الهاتف */
+@media (max-width: 1023px) {
+    footer {
+        margin-top: 6rem;
+        padding: 0.8rem 0;
+    }
+    marquee.footer-marquee {
+        font-size: 0.95rem; /* تصغير الخط شوية فالتلفون */
+    }
+}
+
+
+/* 📱 إعدادات الهواتف والشاشات الصغيرة (الفيكس النهائي) */
+@media (max-width: 1023px) {
+
+    /* تثبيت الـ Header وإجباره على الظهور في الهاتف */
+    header {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        transform: none !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        margin: 0 !important;
+        padding: 1rem !important;
+        background-color: #111827 !important; /* لون داكن واضح */
+        flex-direction: column !important;
+        gap: 0.8rem !important;
+        box-sizing: border-box !important;
+        z-index: 9999 !important; /* أعلى درجة باش يبقى ديما الفوق */
+    }
+
+    /* دفع محتوى الصفحة بالكامل لتحت في الهاتف باش ما يتخباش ورا الـ Header */
+    body {
+        padding-top: 9rem !important; /* زدنا المساحة هنا لـ 9rem حيت الـ header كبر */
+    }
+
+    header div {
+        font-size: 1.3rem !important;
+        justify-content: center !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    header div img {
+        height: 28px !important;
+        margin-left: 8px !important;
+    }
+
+    .navigation ul {
+        gap: 1.2rem !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        padding: 0 !important;
+    }
+
+    .navigation a {
+        font-size: 0.9rem !important;
+    }
+    
+    .navigation a::after {
+        display: none !important;
+    }
+
+    .hero h1 {
+        font-size: 2rem !important;
+    }
+
+    .hero p {
+        font-size: 1rem !important;
+        line-height: 1.7 !important;
+    }
+
+    .cta-btn {
+        padding: 0.9rem 2rem !important;
+        font-size: 1rem !important;
+    }
+
+    .courses-section {
+        padding: 0 1rem !important;
+    }
+
+    .section-title h2 {
+        font-size: 1.5rem !important;
+    }
+
+    .lesson-card {
+        padding: 1rem !important;
+    }
+
+    summary {
+        font-size: 1.1rem !important;
+        gap: 0.8rem !important;
+    }
+
+    .lesson-num {
+        font-size: 1.2rem !important;
+    }
+
+    .resources-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem !important;
+    }
+    
+    .resource-item {
+        padding: 1rem !important;
+        flex-direction: row !important;
+        text-align: right !important;
+        gap: 1rem !important;
+    }
+
+    .about-container {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+
+    .about-box {
+        padding: 1.5rem !important;
+        text-align: center !important;
+    }
+
+    footer {
+        font-size: 0.8rem !important;
+        padding: 2rem 1rem !important;
+    }
+
+    .modal-box {
+        padding: 1.5rem 1rem !important;
+    }
+}
+
+
+
+/* شاشة البداية */
+.intro-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to right, #0f172a, #0b7e74);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeOutIntro 3.5s ease forwards;
+}
+
+/* العنوان */
+.intro-title {
+    font-size: 3rem;
+    color: #22d3ee;
+    font-weight: 900;
+    animation: zoomIn 1s ease;
+}
+
+/* النص التحفيزي */
+.intro-text {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: #ffffff;
+    opacity: 0;
+    animation: fadeText 2s ease forwards;
+    animation-delay: 1s;
+}
+
+/* أنيميشن */
+@keyframes zoomIn {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeText {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* تختفي الشاشة */
+@keyframes fadeOutIntro {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; }
+}
+
+/* علبة العداد المكبرة والأنيقة */
+.counter-box {
+    margin: 3rem auto 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1.2rem !important;
+    background: rgba(15, 23, 42, 0.6) !important; /* خلفية داكنة واضحة */
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 2rem 4rem !important; /* كبرنا المساحة لداخل بزاف باش تجي الصندوق كبير */
+    border-radius: 16px !important;
+    width: max-content !important;
+    direction: rtl !important; /* إجبار الترتيب من اليمين لليسر */
+}
+
+/* تكبير خط العبارة */
+.counter-text {
+    font-size: 1.4rem !important; /* كبرنا الخط لـ 1.4rem */
+    color: #ffffff !important;
+    font-weight: 900 !important; /* خط عريض وبارز */
+    letter-spacing: 0.5px;
+}
+
+.counter-display {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+/* تكبير الأرقام ديال العداد براسهم وسط الكارت */
+.counter-display img {
+    transform: scale(1.3) !important; /* هادي كتكبر حجم الأرقام بـ 30% باش يبانوا كبار وواضحين */
+    margin: 10px 0 !important;
+    border-radius: 6px !important;
+    box-shadow: 0 0 20px rgba(34, 211, 238, 0.2) !important;
+}
+
+
+/* ---------------------------------------------------- */
+/* سيكشن التعليقات الأنيقة (Glassmorphism) */
+/* ---------------------------------------------------- */
+.feedback-section {
+    max-width: 900px;
+    margin: 6rem auto;
+    padding: 0 2rem;
+}
+
+.feedback-container {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr; /* الفورم على اليمين والتعليقات على اليسار */
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+    text-align: right;
+}
+
+/* ستايل الفورم */
+.feedback-form {
+    background: rgba(15, 23, 42, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 2rem;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.feedback-form input, .feedback-form textarea {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #ffffff;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.feedback-form input:focus, .feedback-form textarea:focus {
+    border-color: #22d3ee;
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 0 10px rgba(34, 211, 238, 0.1);
+}
+
+/* زر إرسال التعليق */
+.submit-comment-btn {
+    background: #22d3ee;
+    color: #0f172a;
+    border: none;
+    padding: 1rem;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(34, 211, 238, 0.2);
+    transition: all 0.3s ease;
+}
+
+.submit-comment-btn:hover {
+    background: #06b6d4;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(6, 182, 212, 0.4);
+}
+
+/* قائمة التعليقات الظاهرة */
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    max-height: 400px;
+    overflow-y: auto; /* سكرول لداخل إذا كثروا التعليقات */
+    padding-left: 10px;
+}
+
+.comment-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.2rem;
+    border-radius: 12px;
+}
+
+.comment-card h4 {
+    color: #22d3ee;
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.comment-card p {
+    color: rgba(248, 250, 252, 0.8);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* التجاوب في الهاتف */
+@media (max-width: 1023px) {
+    .feedback-container {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+    }
+}
+
+/* ستايل كارت تعليق مصمم الموقع (إضاءة خفيفة بالسيان فالجناب) */
+.comment-card.admin-card {
+    border-right: 4px solid #22d3ee !important; /* خط سيان مضيء على اليمين */
+    background: rgba(34, 211, 238, 0.05) !important; /* خلفية مائلة للزروقة خفيفة */
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.1);
+}
+
+/* لون إسم المصمم */
+.admin-name {
+    color: #22d3ee !important; /* لون سيان متوهج */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* شارة التوثيق الصغيرة حدا إسمك */
+.admin-badge {
+    background: #22d3ee;
+    color: #0f172a;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+/* ستايل زر جوجل الفخم والمكبر */
+.google-btn {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    color: #ffffff !important;
+    padding: 1.2rem 2.5rem !important; /* كبرنا المساحة لداخل بزاف باش يجي الزر ضخم */
+    border-radius: 14px !important;
+    font-size: 1.15rem !important; /* كبرنا حجم الخط */
+    font-weight: bold !important;
+    cursor: pointer;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important; /* مسافة مريحة بين اللوغو والكتابة */
+    width: 100% !important;
+    max-width: 450px !important; /* العرض الأنسب للزر فالوسط */
+    margin: 1.5rem auto !important; /* تمركيز الزر فالوسط تماماً */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    direction: rtl !important;
+}
+
+.google-btn {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    color: #ffffff !important;
+    padding: 1.2rem 2.5rem !important;
+    border-radius: 14px !important;
+    font-size: 1.15rem !important;
+    font-weight: bold !important;
+    cursor: pointer;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    width: 100% !important;
+    max-width: 450px !important;
+    
+    /* 🔥 هاد السطور هما اللي غايدفعوه للوسط بالمليمتر ويغلبو على أي ستايل آخر */
+    margin: 2rem auto !important; 
+    align-self: center !important; 
+    
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    direction: rtl !important;
+}
+
+/* تنسيق أيقونة جوجل لداخل */
+.google-btn img {
+    width: 24px !important; /* كبرنا حجم اللوغو د غوغل */
+    height: 24px !important;
+    background: transparent !important;
+}
+
+/* تأثير التوهج الفخم فاش كيدوز الماوس */
+.google-btn:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: #22d3ee !important; /* إضاءة بلون السيان المفضّل عندك */
+    transform: translateY(-2px) !important; /* كيتدفع الفوق شوية بنعومة */
+    box-shadow: 0 6px 25px rgba(34, 211, 238, 0.25) !important; /* هالة ضوئية مشعة */
+}
+
+/* تأثير الضغط بالأصابع فالتلفون */
+.google-btn:active {
+    transform: scale(0.98) !important;
+}
+
+/* 1. ضبط الحاوية الكبيرة لتمركيز كل شيء في الوسط */
+.feedback-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; /* كتجبر العلب لداخل يرجعوا للوسط */
+    justify-content: center !important;
+    gap: 2rem !important;
+    width: 100% !important;
+    max-width: 800px !important;
+    margin: 2.5rem auto 0 auto !important;
+}
+
+/* 2. ضبط علبة الزر لتكون ممركزة 100% */
+.feedback-box {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; /* تمركيز زر جوجل لداخل */
+    justify-content: center !important;
+    width: 100% !important;
+    text-align: center !important;
+}
+
+/* 3. فيكس أسطوري لعلبة العداد (باش ما تبقاش تضرب في الجناب) */
+.counter-box {
+    margin: 3rem auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 1.2rem !important;
+    background: rgba(15, 23, 42, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 2rem 4rem !important;
+    border-radius: 16px !important;
+    width: max-content !important; /* كتخليه يجمع راسو على قد الكلمات */
+    max-width: 90% !important;
+    direction: rtl !important;
+}
+
