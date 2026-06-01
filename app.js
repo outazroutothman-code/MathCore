@@ -1,9 +1,9 @@
-// 1. تفعيل السيرفر وقاعدة البيانات وقراءة الخصائص (مأخوذة من الـ HTML)
+// 1. تفعيل قاعدة البيانات والـ Auth (مأخوذة من الـ HTML)
 const db = firebase.firestore();
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 
-// 2. ربط عناصر الواجهة بالـ JavaScript
+// 2. ربط عناصر الواجهة
 const loginBtn = document.getElementById('google-login-btn');
 const feedbackForm = document.querySelector('.feedback-form');
 const userAvatar = document.getElementById('user-avatar');
@@ -27,7 +27,7 @@ auth.onAuthStateChanged((user) => {
     }
 });
 
-// 4. تشغيل زر الدخول بحساب جوجل فاش كيكليكي عليه التلميذ (الـ Popup السحرية 🪄)
+// 4. تشغيل زر الدخول بحساب جوجل فاش كيكليكي عليه التلميذ (الـ Popup 🪄)
 if (loginBtn) {
     loginBtn.addEventListener('click', () => {
         auth.signInWithPopup(provider)
@@ -36,7 +36,6 @@ if (loginBtn) {
         })
         .catch((error) => {
             console.error("خطأ في تسجيل الدخول: ", error.message);
-            alert("حدث خطأ أثناء الاتصال بجوجل: " + error.message);
         });
     });
 }
@@ -47,8 +46,6 @@ if (commentsList) {
         commentsList.innerHTML = '';
         snapshot.forEach((doc) => {
             const comment = doc.data();
-            
-            // 🔒 حماية أمنية: التمييز كيتدار بالإيميل الحقيقي د الجيميل الجديد ديالك
             let isAdmin = (comment.email === "outazroutothman@gmail.com"); 
             
             const commentCard = `
@@ -78,12 +75,12 @@ if (feedbackForm) {
 
         db.collection('comments').add({
             username: currentUser.displayName,
-            email: currentUser.email, // حفظ الإيميل فالسيرفر للتحقق من الـ Admin
-            photoURL: currentUser.photoURL, // حفظ صورة حساب التلميذ
+            email: currentUser.email,
+            photoURL: currentUser.photoURL,
             text: textInput,
             createdAt: firebase.firestore.FieldValue.serverTimestamp()
         }).then(() => {
-            textarea.value = ''; // تفريغ خانة الكتابة فاش يتصيفط
+            textarea.value = ''; // تفريغ الخانة
         }).catch((error) => {
             console.error("Error adding comment: ", error);
         });
