@@ -66,7 +66,7 @@ db.collection("comments")
     snapshot.forEach(doc => {
         const data = doc.data();
         
-        // 🔒 فحص أمني: التحقق بالإيميل الجديد ديالك واش نتا هو الـ Admin
+        // 🔒 فحص أمني: التحقق بالإيميل القديم الحالي ديالك دابا نيت
         let isAdmin = (data.email === "outazroutsmail@gmail.com");
 
         const comment = document.createElement("div");
