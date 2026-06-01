@@ -709,13 +709,29 @@
     </button>
 </div>
 
-<!-- 1. مكتبات Firebase الأصلية والمستقرة (ضروري هما اللولين) -->
+<!-- 1. مكتبات Firebase الأصلية والمستقرة من جوجل (v8) -->
 <script src="https://gstatic.com"></script>
 <script src="https://gstatic.com"></script>
 <script src="https://gstatic.com"></script>
 
-<!-- 2. ملف جافاسكريبت ديالك هو الأخير ديماً باش يقرا المكتبات اللي فوق منه -->
+<!-- 2. كود السوارت والتفعيل (الربط مع السيرفر ديالك د غوغل) -->
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyAFR-h7eUe2-RiHyXt17-7ycuQPFSTtHYo",
+    authDomain: "://firebaseapp.com",
+    projectId: "mathcore-app",
+    storageBucket: "mathcore-app.firebasestorage.app",
+    messagingSenderId: "628624194025",
+    appId: "1:628624194025:web:3db71ac9d401442dc9b378",
+    measurementId: "G-7F656E43CX"
+  };
+  // تشغيل السيرفر أوتوماتيكياً
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+<!-- 3. ملف جافاسكريبت الخاص بالتعليقات (هو الأخير ديماً) -->
 <script src="app.js"></script>
+
 
 </body>
 </html>
