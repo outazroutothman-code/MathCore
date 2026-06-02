@@ -54,8 +54,7 @@ if (loginBtn) {
         isSigningIn = false;
     };
 }
-        .catch(err => alert("خطأ: " + err.message));
-});
+        
 
 // 📤 إرسال تعليق
 feedbackForm.addEventListener('submit', async (e) => {
