@@ -1,90 +1,120 @@
-// 🔥 Firebase services
-const auth = firebase.auth();
+// 🔥 Firebase
 const db = firebase.firestore();
+const auth = firebase.auth();
+const provider = new firebase.auth.GoogleAuthProvider();
 
-// عناصر HTML
-const loginBtn = document.getElementById("google-login-btn");
-const form = document.querySelector(".feedback-form");
-const textarea = form.querySelector("textarea");
-const commentsList = document.querySelector(".comments-list");
+// 🎯 Elements
+const loginBtn = document.getElementById('google-login-btn');
+const feedbackForm = document.querySelector('.feedback-form');
+const userAvatar = document.getElementById('user-avatar');
+const userDisplayName = document.getElementById('user-display-name');
+const commentsList = document.querySelector('.comments-list');
 
-const userAvatar = document.getElementById("user-avatar");
-const userName = document.getElementById("user-display-name");
+let currentUser = null;
 
-// ✅ تسجيل الدخول بـ Google
-loginBtn.addEventListener("click", () => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider);
-});
-
-// ✅ مراقبة حالة المستخدم
-auth.onAuthStateChanged(user => {
+// 👀 مراقبة المستخدم
+auth.onAuthStateChanged((user) => {
     if (user) {
-        loginBtn.style.display = "none";
-        form.style.display = "block";
+        currentUser = user;
+
+        loginBtn.style.display = 'none';
+        feedbackForm.style.display = 'flex';
 
         userAvatar.src = user.photoURL;
-        userName.textContent = user.displayName;
+        userDisplayName.textContent = user.displayName;
+
     } else {
-        loginBtn.style.display = "block";
-        form.style.display = "none";
+        currentUser = null;
+
+        loginBtn.style.display = 'flex';
+        feedbackForm.style.display = 'none';
     }
 });
 
-// ✅ إضافة تعليق
-form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const user = auth.currentUser;
-    if (!user) return;
-
-    const text = textarea.value.trim();
-    if (text === "") return;
-
-    await db.collection("comments").add({
-        text: text,
-        name: user.displayName,
-        photo: user.photoURL,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-    });
-
-    textarea.value = "";
+// 🔐 تسجيل الدخول
+loginBtn.addEventListener('click', () => {
+    auth.signInWithPopup(provider)
+        .catch(err => alert("خطأ: " + err.message));
 });
 
-// ✅ عرض التعليقات لايف
-db.collection("comments")
-.orderBy("createdAt", "desc")
+// 📤 إرسال تعليق
+feedbackForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    if (!currentUser) return;
+
+    const textarea = document.getElementById('comment-input');
+    const text = textarea.value.trim();
+
+    if (!text) {
+        alert("كتب شي تعليق 😉");
+        return;
+    }
+
+    const btn = feedbackForm.querySelector("button");
+    btn.textContent = "جاري الإرسال...";
+
+    try {
+        await db.collection('comments').add({
+            username: currentUser.displayName,
+            email: currentUser.email,
+            photoURL: currentUser.photoURL,
+            text: text,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        textarea.value = "";
+        btn.textContent = "إرسال 🚀";
+
+    } catch (err) {
+        alert("وقع مشكل ❌");
+        btn.textContent = "إرسال 🚀";
+    }
+});
+
+// 📥 عرض التعليقات لايف
+db.collection('comments')
+.orderBy('createdAt', 'desc')
 .onSnapshot(snapshot => {
+
     commentsList.innerHTML = "";
 
     snapshot.forEach(doc => {
-        const data = doc.data();
+        const c = doc.data();
 
-        const comment = document.createElement("div");
-        comment.style.background = "#1e293b";
-        comment.style.padding = "10px";
-        comment.style.marginBottom = "10px";
-        comment.style.borderRadius = "10px";
-        comment.style.display = "flex";
-        comment.style.gap = "10px";
+        const isAdmin = (c.email === "outazroutothman@gmail.com");
 
-        comment.innerHTML = `
-            <img src="${data.photo}" style="width:40px;height:40px;border-radius:50%">
-            <div>
-                <strong style="color:#22d3ee">${data.name}</strong>
-                <p style="margin:5px 0;color:white">${data.text}</p>
+        const date = c.createdAt?.toDate().toLocaleString() || "";
+
+        commentsList.innerHTML += `
+            <div class="comment-card ${isAdmin ? 'admin-card' : ''}">
+
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <img src="${c.photoURL || 'https://i.pravatar.cc/150'}"
+                         style="width:35px; height:35px; border-radius:50%;">
+
+                    <h4>
+                        ${escapeHTML(c.username)}
+                        ${isAdmin ? '<span class="admin-badge">⚡ Admin</span>' : ''}
+                    </h4>
+                </div>
+
+                <p>${escapeHTML(c.text)}</p>
+
+                <small>${date}</small>
             </div>
         `;
-
-        commentsList.appendChild(comment);
     });
 });
 
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /comments/{doc} {
-      allow read, write: if request.auth != null;
-    }
-  }
+// 🛡️ حماية
+function escapeHTML(str) {
+    return str.replace(/[&<>'"]/g,
+        tag => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            "'": '&#39;',
+            '"': '&quot;'
+        }[tag]));
 }
