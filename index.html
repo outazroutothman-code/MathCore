@@ -709,28 +709,26 @@
     </button>
 </div>
 
-<!-- 1. روابط المكتبات الأصلية من جوجل -->
-<script src="https://gstatic.com/firebase-app.js"></script>
-<script src="https://gstatic.com/firebase-firestore.js"></script>
-<script src="https://gstatic.com/firebase-auth.js"></script>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-<!-- 2. كود السوارت والتفعيل المظبوط والصحيح لـ مشروعك -->
 <script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyAFR-h7eUe2-RiHyXt17-7ycuQPFSTtHYo",
-    authDomain: "://firebaseapp.com",
-    projectId: "mathcore-app",
-    storageBucket: "mathcore-app.firebasestorage.app",
-    messagingSenderId: "628624194025",
-    appId: "1:628624194025:web:3db71ac9d401442dc9b378",
-    measurementId: "G-7F656E43CX"
-  };
-  
-  // تفعيل السيرفر بنجاح
-  firebase.initializeApp(firebaseConfig);
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "mathcore-app.firebaseapp.com",
+  projectId: "mathcore-app",
+  storageBucket: "mathcore-app.appspot.com",
+  messagingSenderId: "628624194025",
+  appId: "1:628624194025:web:3db71ac9d401442dc9b378",
+  measurementId: "G-7F656E43CX"
+};
+
+// تفعيل Firebase
+firebase.initializeApp(firebaseConfig);
 </script>
 
-<!-- 3. ملف جافاسكريبت الخاص بالتعليقات -->
 <script src="app.js"></script>
 
 </body>
