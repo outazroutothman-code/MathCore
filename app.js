@@ -35,26 +35,24 @@ auth.onAuthStateChanged((user) => {
 let isSigningIn = false;
 
 if (loginBtn) {
-    loginBtn.addEventListener('click', () => {
-        if (isSigningIn) return; // يمنع الضغط المكرر
+    loginBtn.onclick = async () => {
+        if (isSigningIn) return;
 
         isSigningIn = true;
 
-        auth.signInWithPopup(provider)
-        .then((result) => {
-            console.log("تسجيل الدخول بنجاح:", result.user.displayName);
-        })
-        .catch((error) => {
-            console.error("خطأ:", error.message);
+        try {
+            const result = await auth.signInWithPopup(provider);
+            console.log("Login success:", result.user.displayName);
+        } catch (error) {
+            console.error("Login error:", error.code);
 
             if (error.code !== 'auth/cancelled-popup-request') {
-                alert("خطأ: " + error.message);
+                alert(error.message);
             }
-        })
-        .finally(() => {
-            isSigningIn = false;
-        });
-    });
+        }
+
+        isSigningIn = false;
+    };
 }
         .catch(err => alert("خطأ: " + err.message));
 });
