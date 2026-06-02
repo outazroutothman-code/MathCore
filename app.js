@@ -32,8 +32,30 @@ auth.onAuthStateChanged((user) => {
 });
 
 // 🔐 تسجيل الدخول
-loginBtn.addEventListener('click', () => {
-    auth.signInWithPopup(provider)
+let isSigningIn = false;
+
+if (loginBtn) {
+    loginBtn.addEventListener('click', () => {
+        if (isSigningIn) return; // يمنع الضغط المكرر
+
+        isSigningIn = true;
+
+        auth.signInWithPopup(provider)
+        .then((result) => {
+            console.log("تسجيل الدخول بنجاح:", result.user.displayName);
+        })
+        .catch((error) => {
+            console.error("خطأ:", error.message);
+
+            if (error.code !== 'auth/cancelled-popup-request') {
+                alert("خطأ: " + error.message);
+            }
+        })
+        .finally(() => {
+            isSigningIn = false;
+        });
+    });
+}
         .catch(err => alert("خطأ: " + err.message));
 });
 
