@@ -1,9 +1,9 @@
-// 🔥 Firebase
+
 const db = firebase.firestore();
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
 
-// 🎯 Elements
+
 const loginBtn = document.getElementById('google-login-btn');
 const feedbackForm = document.querySelector('.feedback-form');
 const userAvatar = document.getElementById('user-avatar');
@@ -12,7 +12,7 @@ const commentsList = document.querySelector('.comments-list');
 
 let currentUser = null;
 
-// 👀 مراقبة المستخدم
+
 auth.onAuthStateChanged((user) => {
     if (user) {
         currentUser = user;
@@ -31,7 +31,7 @@ auth.onAuthStateChanged((user) => {
     }
 });
 
-// 🔐 تسجيل الدخول
+
 let isSigningIn = false;
 
 if (loginBtn) {
@@ -56,7 +56,7 @@ if (loginBtn) {
 }
         
 
-// 📤 إرسال تعليق
+
 feedbackForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -91,7 +91,7 @@ feedbackForm.addEventListener('submit', async (e) => {
     }
 });
 
-// 📥 عرض التعليقات لايف
+
 db.collection('comments')
 .orderBy('createdAt', 'desc')
 .onSnapshot(snapshot => {
@@ -126,7 +126,6 @@ db.collection('comments')
     });
 });
 
-// 🛡️ حماية
 function escapeHTML(str) {
     return str.replace(/[&<>'"]/g,
         tag => ({
