@@ -1,8 +1,22 @@
+// 1. إعدادات مشروع Firebase الخاص بك (استبدل هذه القيم بالقيم الحقيقية الخاصة بمشروعك)
+const firebaseConfig = {
+  apiKey: "ضع_هنا_الـ_API_KEY_الحقيقي_الخاص_بك",
+  authDomain: "://firebaseapp.com",
+  projectId: "math-core-xxxx",
+  storageBucket: "://appspot.com",
+  messagingSenderId: "1234567890",
+  appId: "1:1234567890:web:xxxx"
+};
 
+// 2. تهيئة Firebase قبل استدعاء أي خدمات لتفادي خطأ التكرار
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+
+// 3. تعريف خدمات Firebase والمستندات (DOM)
 const db = firebase.firestore();
 const auth = firebase.auth();
 const provider = new firebase.auth.GoogleAuthProvider();
-
 
 const loginBtn = document.getElementById('google-login-btn');
 const feedbackForm = document.querySelector('.feedback-form');
@@ -12,7 +26,7 @@ const commentsList = document.querySelector('.comments-list');
 
 let currentUser = null;
 
-
+// 4. مراقبة حالة تسجيل دخول المستخدم
 auth.onAuthStateChanged((user) => {
     if (user) {
         currentUser = user;
@@ -31,9 +45,9 @@ auth.onAuthStateChanged((user) => {
     }
 });
 
-
 let isSigningIn = false;
 
+// 5. حدث الضغط على زر تسجيل الدخول باستخدام Google
 if (loginBtn) {
     loginBtn.onclick = async () => {
         if (isSigningIn) return;
@@ -54,9 +68,8 @@ if (loginBtn) {
         isSigningIn = false;
     };
 }
-        
 
-
+// 6. حدث إرسال التعليقات وحفظها في Firestore
 feedbackForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -91,7 +104,7 @@ feedbackForm.addEventListener('submit', async (e) => {
     }
 });
 
-
+// 7. جلب التعليقات وعرضها بشكل حي ومباشر (Realtime)
 db.collection('comments')
 .orderBy('createdAt', 'desc')
 .onSnapshot(snapshot => {
@@ -109,7 +122,7 @@ db.collection('comments')
             <div class="comment-card ${isAdmin ? 'admin-card' : ''}">
 
                 <div style="display:flex; align-items:center; gap:8px;">
-                    <img src="${c.photoURL || 'https://i.pravatar.cc/150'}"
+                    <img src="${c.photoURL || 'https://pravatar.cc'}"
                          style="width:35px; height:35px; border-radius:50%;">
 
                     <h4>
@@ -126,7 +139,9 @@ db.collection('comments')
     });
 });
 
+// 8. دالة حماية الموقع وتأمين كود الـ HTML المكتوب من قبل المستخدمين
 function escapeHTML(str) {
+    if (!str) return "";
     return str.replace(/[&<>'"]/g,
         tag => ({
             '&': '&amp;',
